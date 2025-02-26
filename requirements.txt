@@ -3,3 +3,4 @@ Flask-Cors
 Flask-Restful
 BS4
 gunicorn
+requests
