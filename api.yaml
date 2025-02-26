@@ -1,0 +1,240 @@
+openapi: 3.0.3
+info:
+  description: "Weather API Scrapes from IMD Website to provide data"
+  version: 1.0.0
+  title: IMD Weather API
+  contact:
+    email: shagunpdwivedi@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: station
+    description: Everything about your Pets
+
+    
+paths:
+  "/{station}/weather":
+    get:
+      tags:
+        - station
+      summary: Get Brief Weather Report
+      description: For valid response try Indian district names. Other values may generated exceptions.
+      operationId: BriefWeather
+      parameters:
+        - name: station
+          in: path
+          description: Name of Place
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    max_temp:
+                      type: string
+                      minLength: 0
+                    min_temp:
+                      type: string
+                      minLength: 0
+                    total_rainfall:
+                      type: string
+                      minLength: 0
+                      nullable: true
+                    humidity_0830:
+                      type: string
+                      minLength: 0
+              examples:
+                example-1:
+                  value:
+                    - humidity_0830: "100"
+                      total_rainfall: "22.5"
+                      max_temp: "16.5"
+                      min_temp: "2.2"
+        "400":
+          description: Invalid Station Supplied
+        "404":
+          description: The Resource was not Found on this Server
+        "500":
+          description: Internal Server Error Occurred
+  "/{station}/detailed_weather":
+    get:
+      tags:
+        - station
+      summary: Get Detailed Weather Report
+      description: For valid response try Indian district names. Other values may generated exceptions.
+      operationId: DetailedWeather
+      parameters:
+        - name: station
+          in: path
+          description: Name of Place
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: array
+                  description: ''
+                  minItems: 1
+                  uniqueItems: true
+                  items:
+                    type: object
+                    properties:
+                      max_temp:
+                        type: string
+                        minLength: 0
+                      min_temp:
+                        type: string
+                        minLength: 0
+                      total_rainfall:
+                        type: string
+                        minLength: 0
+                        nullable: true
+                      humidity_0830:
+                        type: string
+                        minLength: 0
+                      24hr_rainfall:
+                        type: string
+                        minLength: 0
+                      humidity_1730:
+                        type: string
+                        minLength: 0
+                      max_temp_departure_from_normal:
+                        type: string
+                        minLength: 0
+                      min_temp_departure_from_normal:
+                        type: string
+                        minLength: 0
+                      moonrise:
+                        type: string
+                        minLength: 0
+                      moonset:
+                        type: string
+                        minLength: 0
+                      sunrise:
+                        type: string
+                        minLength: 0
+                      sunset:
+                        type: string
+                        minLength: 0
+                examples:
+                  example-1:
+                    value:
+                      - 24hr_rainfall: "NIL"
+                        humidity_0830: "100"
+                        humidity_1730": "69"
+                        max_temp: "16.5"
+                        max_temp_departure_from_normal: "-3"
+                        min_temp: "2.2"
+                        min_temp_departure_from_normal": "-5"
+                        moonrise: "18:51"
+                        moonset: "09:03"
+                        sunrise: "07:15"
+                        sunset: "17:41"
+                        total_rainfall: "22.5"
+        "400":
+          description: Invalid Station Supplied
+        "404":
+          description: The Resource was not Found on this Server
+        "500":
+          description: Internal Server Error Occurred
+  "/{station}/forecast":
+    get:
+      tags:
+        - station
+      summary: Get Weekly Forecast
+      description: For valid response try Indian district names. Other values may generated exceptions.
+      operationId: Forecast
+      parameters:
+        - name: station
+          in: path
+          description: Name of Place
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+                schema:
+                  type: array
+                  description: ''
+                  minItems: 1
+                  uniqueItems: true
+                  items:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        minLength: 0
+                      max_temp:
+                        type: string
+                        minLength: 0
+                      min_temp:
+                        type: string
+                        minLength: 0
+                        nullable: true
+                      weather:
+                        type: string
+                        minLength: 0
+
+                examples:
+                  example-1:
+                    value:
+                      - date: "08-Jan"
+                        max_temp: "17.0"
+                        min_temp": "2.0"
+                        weather: "Dense fog and cold wave conditions"
+                      - date: "09-Jan"
+                        max_temp: "18.0"
+                        min_temp": "3.0"
+                        weather: "Cold Wave"
+                      - date: "10-Jan"
+                        max_temp: "19.0"
+                        min_temp": "5.0"
+                        weather: "Dense Fog"
+                      - date: "11-Jan"
+                        max_temp: "19.0"
+                        min_temp": "6.0"
+                        weather: "Moderate Fog"
+                      - date: "12-Jan"
+                        max_temp: "20.0"
+                        min_temp": "7.0"
+                        weather: "Dense Fog"
+                      - date: "13-Jan"
+                        max_temp: "21.0"
+                        min_temp": "7.0"
+                        weather: "Fog"
+                      - date: "14-Jan"
+                        max_temp: "18.0"
+                        min_temp": "6.0"
+                        weather: "Fog"
+        "400":
+          description: Invalid Station Supplied
+        "404":
+          description: The Resource was not Found on this Server
+        "500":
+          description: Internal Server Error Occurred
+
+          
+
+servers:
+  - url: 'http://127.0.0.1:5000'
+    description: localhost
+components:
+  schemas: {}
